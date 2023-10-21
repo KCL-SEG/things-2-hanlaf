@@ -1,18 +1,11 @@
 """Forms of the project."""
 from django import forms
-from django.core.validators import MinValueValidator, MaxValueValidator
+from things.models import Thing
 # Create your forms here.
 
-class ThingForm(forms.Form):
-    name = forms.CharField(
-        label="Name",
-        max_length=36,
-        )
-    description = forms.CharField(
-        max_length=120, 
-        widget=forms.Textarea)
-    quantity = forms.Field(
-        widget=forms.NumberInput, 
-        validators=[MinValueValidator(0), MaxValueValidator(50)])
-
+class ThingForm(forms.ModelForm):
+    class Meta:
+        model = Thing
+        fields = ['name', 'description', 'quantity']
+        widgets = {'description' : forms.Textarea(), 'quantity' : forms.NumberInput}
 
