@@ -21,6 +21,12 @@ class ThingFormTestCase(TestCase):
         self.form_input['name'] = ""
         form = ThingForm(data=self.form_input)
         self.assertFalse(form.is_valid())
+
+    # Form refuses form with empty description
+    def test_form_refuses_empty_description(self):
+        self.form_input['description'] = ""
+        form = ThingForm(data=self.form_input)
+        self.assertFalse(form.is_valid())
     
     # Form refuses form with empty quantity
     def test_form_refuses_empty_quantity(self):
@@ -47,4 +53,5 @@ class ThingFormTestCase(TestCase):
     def test_form_has_correct_fields(self):
         form = ThingForm()
         self.assertIn('name', form.fields)
+        self.assertIn('description', form.fields.keys())
         self.assertIn('quantity', form.fields)
